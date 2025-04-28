@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { BASE_URL, USERS_URL } from '../constants'
 
 export const apiSlice = createApi({
@@ -16,4 +16,4 @@ export const apiSlice = createApi({
 	}),
 })
 
-export const { useLoginMutation } = apiSlice;
+export const {useLoginMutation} = apiSlice;

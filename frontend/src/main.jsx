@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')).render(
 			<Provider store={store}>
 				<Routes>
 					<Route path="/fullstack/" element={<App />}>
-						<Route index={true}  element={<Home/>}/>
+						<Route index element={<Home/>}/>
 					</Route>
 					<Route path='/fullstack/login' element={<Login/>}/>
 				</Routes>
