@@ -11,4 +11,14 @@
 }
 body {
 	font-family: 'Poppins', sans-serif;
+	background-color: #0f0f10;
+	color: #fff;
+}
+input,textarea{
+	color: #000;
+
+}
+
+select option {
+	color:#000
 }

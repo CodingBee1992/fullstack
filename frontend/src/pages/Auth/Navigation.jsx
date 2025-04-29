@@ -17,6 +17,9 @@ const Navigation = () => {
 
 	const [logoutApiCall] = useLoginMutation()
 
+	const logoutHandler = ()=>{
+		
+	}
 	return (
 		<div className="fixed bottom-10 left-[30rem] transform translate-x-1/2 translate-y-1/2 z-50 bg-[#0f0f0f] border w-[30%] p-2 mb-[2rem] rounded">
 			<section className="flex justify-between items-center">
