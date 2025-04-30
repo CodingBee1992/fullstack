@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router'
-import { useLoginMutation } from '../../redux/api/apiSlice'
+import { useLogoutMutation } from '../../redux/api/apiSlice'
 import { AiOutlineHome, AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import { MdOutlineLocalMovies } from 'react-icons/md'
+import { toast } from 'react-toastify'
+import { logout } from '../../redux/features/auth/authSlice'
 const Navigation = () => {
 	const { userInfo } = useSelector(state => state.auth)
 	const [dropDownOpen, setDropDownOpen] = useState(false)
@@ -15,10 +17,17 @@ const Navigation = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const [logoutApiCall] = useLoginMutation()
+	const [logoutApiCall] = useLogoutMutation()
 
-	const logoutHandler = ()=>{
-		
+	const logoutHandler = async ()=>{
+		try {
+			await logoutApiCall().unwrap()
+			dispatch(logout())
+			navigate("/fullstack/login")
+			toast.success("User successfully Loged Out")
+		} catch (error) {
+			toast.error(error)
+		}
 	}
 	return (
 		<div className="fixed bottom-10 left-[30rem] transform translate-x-1/2 translate-y-1/2 z-50 bg-[#0f0f0f] border w-[30%] p-2 mb-[2rem] rounded">
