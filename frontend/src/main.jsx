@@ -14,6 +14,7 @@ import PrivateRoute from './pages/Auth/PrivateRoute.jsx'
 import Profile from './pages/User/Profile.jsx'
 import AdminRoute from './pages/Admin/AdminRoute.jsx'
 import GenreList from './pages/Admin/GenreList.jsx'
+import CreateMovie from './pages/Admin/CreateMovie.jsx'
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')).render(
 						</Route>
 						<Route path='admin' element={<AdminRoute />}>
 							<Route path='movies/genre' element={<GenreList/>}/>
+							<Route path='movies/create' element={<CreateMovie/>}/>
 						</Route>
 					</Route>
 					<Route path="/fullstack/login" element={<Login />} />
