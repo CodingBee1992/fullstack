@@ -19,33 +19,36 @@ const Navigation = () => {
 
 	const [logoutApiCall] = useLogoutMutation()
 
-	const logoutHandler = async ()=>{
+	const logoutHandler = async () => {
 		try {
 			await logoutApiCall().unwrap()
 			dispatch(logout())
-			navigate("/fullstack/login")
-			toast.success("User successfully Loged Out")
+			navigate('/fullstack/login')
+			toast.success('User successfully Loged Out')
 		} catch (error) {
 			toast.error(error)
 		}
 	}
 	return (
-		<div className="fixed bottom-10 left-[30rem] transform translate-x-1/2 translate-y-1/2 z-50 bg-[#0f0f0f] border w-[30%] p-2 mb-[2rem] rounded">
-			<section className="flex justify-between items-center">
+		<div className="fixed flex items-center justify-center w-full bottom-0 rounded z-50">
+			<section className="flex justify-between items-center min-w-[30%] p-3 bg-[#0f0f0f] border-2 border-teal-500">
 				{/* Section 1 */}
 				<div className="flex justify-around items-center w-full ">
-					<Link to="/fullstack/" className="flex flex-col items-center gap-2 text-white ">
+					<Link
+						to="/fullstack/"
+						onMouseEnter={toggleDropDown}
+						onMouseLeave={toggleDropDown}
+						className="flex flex-col items-center gap-2 text-white  ">
 						<span className={`${dropDownOpen ? 'visible' : 'hidden'} nav-item-name`}>Home</span>
-						<AiOutlineHome onMouseEnter={toggleDropDown} onMouseLeave={toggleDropDown} className="mr-2 " size={26} />
+						<AiOutlineHome className="mr-2 " size={26} />
 					</Link>
-					<Link to="/fullstack/movies" className="flex flex-col items-center jusify-center gap-2 text-white ">
+					<Link
+						to="/fullstack/movies"
+						onMouseEnter={toggleDropDown}
+						onMouseLeave={toggleDropDown}
+						className="flex flex-col items-center jusify-center gap-2 text-white ">
 						<span className={`${dropDownOpen ? 'visible' : 'hidden'}`}>Shop</span>
-						<MdOutlineLocalMovies
-							onMouseEnter={toggleDropDown}
-							onMouseLeave={toggleDropDown}
-							className="mr-2"
-							size={26}
-						/>
+						<MdOutlineLocalMovies className="mr-2" size={26} />
 					</Link>
 				</div>
 				{/* Section 2 */}
@@ -103,23 +106,22 @@ const Navigation = () => {
 							<li>
 								<Link
 									to="/fullstack/login"
+									onMouseEnter={toggleDropDown}
+									onMouseLeave={toggleDropDown}
 									className="flex flex-col justify-center items-center gap-2 text-white transition-transform transform hover:translate-x-2 ">
 									<span className={`${dropDownOpen ? 'visible' : 'hidden'}`}>LOGIN</span>
-									<AiOutlineLogin
-										onMouseEnter={toggleDropDown}
-										onMouseLeave={toggleDropDown}
-										
-										size={26}
-									/>
+									<AiOutlineLogin size={26} />
 								</Link>
 							</li>
 
 							<li>
 								<Link
 									to="/fullstack/register"
+									onMouseEnter={toggleDropDown}
+									onMouseLeave={toggleDropDown}
 									className="flex flex-col justify-center items-center gap-2  text-white transition-transform transform hover:translate-x-2 ml-[1rem]">
 									<span className={`${dropDownOpen ? 'visible' : 'hidden'}`}>REGISTER</span>
-									<AiOutlineUserAdd onMouseEnter={toggleDropDown} onMouseLeave={toggleDropDown} size={26} />
+									<AiOutlineUserAdd size={26} />
 								</Link>
 							</li>
 						</ul>

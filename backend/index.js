@@ -8,8 +8,11 @@ import morgan from 'morgan'
 import path from 'path'
 import connectDB from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
+import genreRoutes from './routes/genreRoutes.js'
+import movieRoutes from './routes/movieRoutes.js'
 import { users } from './data/data.js'
 import User from './models/User.js'
+import cookieParser from 'cookie-parser'
 
 // Configuration
 dotenv.config()
@@ -20,10 +23,13 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }))
 app.use(morgan('common'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 app.use(cors())
 
 // ROUTES
 app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/genres', genreRoutes)
+app.use('/api/v1/movies', movieRoutes)
 
 const PORT = process.env.PORT || 9000
 

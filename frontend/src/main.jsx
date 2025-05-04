@@ -12,6 +12,8 @@ import Register from './pages/Auth/Register.jsx'
 import { ToastContainer } from 'react-toastify'
 import PrivateRoute from './pages/Auth/PrivateRoute.jsx'
 import Profile from './pages/User/Profile.jsx'
+import AdminRoute from './pages/Admin/AdminRoute.jsx'
+import GenreList from './pages/Admin/GenreList.jsx'
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
@@ -24,6 +26,9 @@ createRoot(document.getElementById('root')).render(
 						<Route path="movies" element={<Movies />} />
 						<Route path="" element={<PrivateRoute />} >
 						<Route path='profile' element={<Profile/>}/>
+						</Route>
+						<Route path='admin' element={<AdminRoute />}>
+							<Route path='movies/genre' element={<GenreList/>}/>
 						</Route>
 					</Route>
 					<Route path="/fullstack/login" element={<Login />} />
