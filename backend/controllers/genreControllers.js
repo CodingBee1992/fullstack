@@ -25,7 +25,7 @@ const createGenre = asyncHandler(async (req,res) => {
 })
 
 const updateGenre =asyncHandler(async (req,res) => {
-    console.log(`Movie Name: ${req.body.updatedGenre}`);
+   
     try {
         const {name}= req.body
         const {id} = req.params
