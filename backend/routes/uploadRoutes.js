@@ -22,9 +22,10 @@ const fileFilter = (req,file,cb)=>{
     const mimetypes = /image\/jpe?g|image\/png|image\/webp/
 
     const extname = path.extname(file.originalname)
-    const miemtype = file.miemtype
-
-    if(filetypes.test(extname) && mimetypes.test(miemtype)){
+    const mimetype = file.mimetype
+    
+   
+    if(filetypes.test(extname) && mimetypes.test(mimetype)){
         cb(null,true)
     }else{
         cb(new Error("Images only",false))

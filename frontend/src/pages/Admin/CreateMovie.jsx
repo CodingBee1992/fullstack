@@ -18,7 +18,7 @@ const CreateMovie = () => {
 
 	const [selectedImage, setSelectedImage] = useState(null)
 	const [createMovie, { isLoading: isCreatingMovie, error: createMovieErrorDetail }] = useCreateMovieMutation()
-
+	
 	const [uploadImage, { isLoading: isUploadingImage, error: uploadImageErrorDetails }] = useUploadImageMutation()
 
 	const { data: genres, isLoading: isLoadingGenre } = useFetchGenresQuery()
@@ -31,6 +31,78 @@ const CreateMovie = () => {
 			}))
 		}
 	}, [genres])
+
+	const handleChange = e => {
+		e.preventDefault()
+
+		const { name, value } = e.target
+
+		if (name === 'genre') {
+			const selectedGenre = genres.find(genre => genre.name === value)
+			console.log(movieData.genre);
+			setMovieData(prevData => ({ ...prevData, genre: selectedGenre.name ? selectedGenre._id : '' }))
+		} else {
+			setMovieData(prevData => ({ ...prevData, [name]: value }))
+		}
+	}
+	const handleImageChange = e => {
+		e.preventDefault()
+
+		const file = e.target.files[0]
+
+		setSelectedImage(file)
+	}
+
+	const handleCreateMovie = async () => {
+		try {
+			if (!movieData.name || !movieData.year || !movieData.detail || !movieData.cast || !selectedImage) {
+				toast.error('Please fill all required fields')
+				return
+			}
+			let uploadedImagePath = null
+
+			if (selectedImage) {
+				const formData = new FormData()
+
+				formData.append('image', selectedImage)
+
+				const uploadImageResponse = await uploadImage(formData)
+
+				console.log(uploadImageResponse);
+				if (uploadImageResponse.data) {
+					uploadedImagePath = uploadImageResponse.data.image
+				} else {
+					console.error('Failed to upload image:', uploadImageErrorDetails)
+					toast.error("Failed to upload image")
+					return
+				}
+
+				await createMovie({
+					...movieData,
+					image: uploadedImagePath
+				});
+				navigate('/fullstack/admin/movies-list')
+
+
+				setMovieData ({
+					name:"",
+					year:0,
+					detail:'',
+					cast:[],
+					ratings:0,
+					image:null,
+					genre:''
+				})
+
+				toast.success("Movie Added to Database")
+			}
+		} catch (error) {
+			console.log(error);
+			console.error('Failed to create movie:', createMovieErrorDetail)
+			toast.error(`Failed to create movie: ${createMovieErrorDetail?.message}`)
+		}
+	}
+
 	return (
 		<div className="container flex justify-center items-center mt-4">
 			<form>
@@ -43,7 +115,7 @@ const CreateMovie = () => {
 							type="text"
 							name="name"
 							value={movieData.name}
-							// onChange={handleChange}
+							onChange={handleChange}
 							className="px-2 py-1 w-full bg-gray-200 focus:outline-none"
 						/>
 					</label>
@@ -55,7 +127,7 @@ const CreateMovie = () => {
 							type="text"
 							name="year"
 							value={movieData.year}
-							// onChange={handleChange}
+							onChange={handleChange}
 							className="px-2 py-1 w-full bg-gray-200 focus:outline-none"
 						/>
 					</label>
@@ -64,9 +136,10 @@ const CreateMovie = () => {
 					<label className="block">
 						Details:
 						<textarea
+							type="text"
 							name="detail"
 							value={movieData.detail}
-							// onChange={handleChange}
+							onChange={handleChange}
 							className="w-full px-2 py-1 bg-gray-200 focus:outline-none"></textarea>
 					</label>
 				</div>
@@ -88,13 +161,13 @@ const CreateMovie = () => {
 						<select
 							name="genre"
 							value={movieData.genre}
-							// onChange={handleChange}
+							onChange={handleChange}
 							className="w-full px-2 py-1 bg-gray-200 text-teal-600">
 							{isLoadingGenre ? (
 								<option>Loading genres...</option>
 							) : (
 								genres.map(genre => (
-									<option key={genre._id} value={genre.id}>
+									<option key={genre.id} value={genre.name}>
 										{genre.name}
 									</option>
 								))
@@ -105,25 +178,27 @@ const CreateMovie = () => {
 
 				<div className="mb-4">
 					<label
+						className="hover:bg-gray-700 duration-400 cursor-pointer"
 						style={
 							!selectedImage
-								? { border: '1px solid #888', borderRadius: '5px', paddingInline:"11px",paddingBlock:"8px" }
+								? { border: '1px solid #888', borderRadius: '5px', paddingInline: '11px', paddingBlock: '8px' }
 								: { border: '0', borderRadius: '0', padding: '0' }
 						}>
 						{!selectedImage && 'Upload Image'}
 						<input
 							type="file"
-							accept="imgae/*"
-							// onChange={handleImageChange}
+							accept="image/*"
+							onChange={handleImageChange}
 							style={{ display: !selectedImage ? 'none' : 'block' }}
+							className='bg-gray-200'
 						/>
 					</label>
 				</div>
 
 				<button
 					type="button"
-					// onClick={handleCreateMovie}
-					className="px-4 py-2 bg-teal-500 text-white rounded"
+					onClick={handleCreateMovie}
+					className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-700 duration-400 cursor-pointer"
 					disabled={isCreatingMovie || isUploadingImage}>
 					{isCreatingMovie && isUploadingImage ? 'Creating...' : 'Create Movie'}
 				</button>
