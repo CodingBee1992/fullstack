@@ -24,6 +24,7 @@ const getAllMovies = async (req, res) => {
 const getSpecificMovie = async (req, res) => {
 	try {
 		const { id } = req.params
+		
 		const specificMovie = await Movies.findById(id)
 
 		if (!specificMovie) {

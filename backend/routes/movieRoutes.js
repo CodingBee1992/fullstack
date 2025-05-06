@@ -12,7 +12,7 @@ const router = express.Router()
 
 // Public routes
 router.get("/all-movies", getAllMovies)
-router.get("/specific-movie/:id", getSpecificMovie)
+router.get('/specific-movie/:id', getSpecificMovie)
 router.get('/new-movies',getNewMovies)
 router.get('/top-movies', getTopMovies)
 router.get('/random-movies', getRandomMovies)

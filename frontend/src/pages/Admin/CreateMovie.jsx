@@ -159,14 +159,16 @@ const CreateMovie = () => {
 					<label className="block">
 						Genre:
 						<select
+						
 							name="genre"
 							value={movieData.genre}
 							onChange={handleChange}
 							className="w-full px-2 py-1 bg-gray-200 text-teal-600">
-							{isLoadingGenre ? (
+							{isLoadingGenre  ? (
 								<option>Loading genres...</option>
 							) : (
 								genres.map(genre => (
+							
 									<option key={genre.id} value={genre.name}>
 										{genre.name}
 									</option>
