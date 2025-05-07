@@ -167,6 +167,7 @@ const CreateMovie = () => {
 							{isLoadingGenre  ? (
 								<option>Loading genres...</option>
 							) : (
+								
 								genres.map(genre => (
 							
 									<option key={genre.id} value={genre.name}>

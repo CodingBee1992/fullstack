@@ -1,8 +1,11 @@
 import { Link } from 'react-router'
 import { useGetAllMoviesQuery } from '../../redux/api/apiSlice'
 
+
 const AdminMovieList = () => {
 	const { data: movies } = useGetAllMoviesQuery()
+	
+	
 
 	return (
 		<div className="mx-[9rem]">

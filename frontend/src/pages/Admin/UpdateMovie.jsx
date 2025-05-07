@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import {
 	useDeleteMovieMutation,
+	useGetAllMoviesQuery,
 	useGetSpecificMovieQuery,
 	useUpdateMovieMutation,
 	useUploadImageMutation,
@@ -11,7 +12,7 @@ import { toast } from 'react-toastify'
 const UpdateMovie = () => {
 	const { id } = useParams()
 	const navigate = useNavigate()
-
+	const refetch = useGetAllMoviesQuery()
 	const [movieData, setMovieData] = useState({
 		name: '',
 		year: 0,
@@ -96,7 +97,7 @@ const UpdateMovie = () => {
 			
 
 			await deleteMovie(id)
-			navigate('/fullstack/movies')
+			navigate('/fullstack/admin/movies-list')
 			toast.success("Movie deleted successfully deleted")
 		} catch (error) {
 			console.error('Failed to delete movie:', error)
