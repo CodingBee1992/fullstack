@@ -1,5 +1,5 @@
 import express from 'express'
-import User from '../models/User.js'
+
 // controllers
 import { creatUser, loginUser, logoutCurrentUser, getAllUsers,getCurrentUserProfile,updateCurrentUserProfile } from '../controllers/userController.js'
 // middlewares

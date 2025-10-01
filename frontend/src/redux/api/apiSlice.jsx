@@ -4,6 +4,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { BASE_URL, USERS_URL, GENRE_URL, MOVIE_URL, UPLOAD_URL } from '../constants'
 
 export const apiSlice = createApi({
+	reducerPath:'api',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	endpoints: builder => ({
 		login: builder.mutation({

@@ -10,5 +10,8 @@ export default defineConfig({
       "/api/":"http://localhost:1337",
       "/uploads/":"http://localhost:1337"
     }
-  }
+  },
+  // build:{
+  //   outDir:'../backend/dist'
+  // }
 })
